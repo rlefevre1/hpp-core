@@ -36,6 +36,8 @@ namespace hpp {
       inline std::size_t collide (const CollisionPairs_t::const_iterator& _colPair,
           const fcl::CollisionRequest& req, fcl::CollisionResult& res) {
         res.clear();
+	hppDout (info, "checking collision between " << _colPair->first->name ()
+		 << " and " << _colPair->second->name () << "." << std::endl);
         return fcl::collide (
                     _colPair->first ->fcl (),
                     _colPair->second->fcl (),
@@ -156,6 +158,7 @@ namespace hpp {
               hppDout(info, "Parameterized collision pairs between "
                   << _colPair->first ->name() << " and "
                   << _colPair->second->name());
+	      hppDout(info, "j1=" << j1 << ", j2=" << j2);
               parameterizedPairs_.push_back (*_colPair);
               _colPair = collisionPairs_.erase (_colPair);
               break;

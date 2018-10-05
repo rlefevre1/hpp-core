@@ -22,6 +22,7 @@
 
 #include <hpp/util/debug.hh>
 #include <hpp/pinocchio/device.hh>
+#include <hpp/pinocchio/configuration.hh>
 #include <hpp/core/collision-validation.hh>
 #include <hpp/core/joint-bound-validation.hh>
 #include <hpp/core/config-validations.hh>
@@ -248,7 +249,7 @@ namespace hpp {
       ValidationReportPtr_t report;
       if (!configValidations_->validate (*initConf_, report)) {
 	std::ostringstream oss;
-	oss << *report;
+	oss << "Init configuration " << pinocchio::displayConfig(*initConf_) << " is not valid: " << *report;
 	throw std::runtime_error (oss.str ());
       }
 
@@ -257,7 +258,7 @@ namespace hpp {
 	const ConfigurationPtr_t& goalConf (*it);
 	if (!configValidations_->validate (*goalConf, report)) {
 	  std::ostringstream oss;
-	  oss << *report;
+      oss << "Goal configuration " << pinocchio::displayConfig (*goalConf) << " is not valid: " << *report;
 	  throw std::runtime_error (oss.str ());
 	}
       }
